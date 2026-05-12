@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
-import { Country } from "@typings/models";
+import { Country, Taxonomy } from "@typings/models";
 
 type Props = {
   children: React.ReactNode;
@@ -10,6 +10,7 @@ type Props = {
   buildLanguages?: Country[];
   countries?: Country[];
   pageTitle?: string;
+  taxonomies: Taxonomy[];
 };
 
 const Layout: React.FC<Props> = ({
@@ -17,14 +18,13 @@ const Layout: React.FC<Props> = ({
   buildLanguages = [],
   lang,
   countryCode,
-  countries = []
+  countries = [],
+  taxonomies = []
 }) => {
   return (
     <>
       <div className="relative bg-ashy overflow-hidden">
-        <div className="relative pt-5 pb-10 px-5 lg:px-0 lg:pb-16 max-w-screen-lg mx-auto">
-          <Header lang={lang} countryCode={countryCode} />
-        </div>
+        <Header lang={lang} countryCode={countryCode} taxonomies={taxonomies} />
 
         <main>{children}</main>
 

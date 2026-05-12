@@ -1,7 +1,7 @@
 import React from "react";
 import { CommerceLayer, OrderContainer, OrderStorage } from "@commercelayer/react-components";
 import Layout from "@components/Layout";
-import { Country } from "@typings/models";
+import { Country, Taxonomy } from "@typings/models";
 
 type Props = {
   children: React.ReactNode;
@@ -13,6 +13,7 @@ type Props = {
   countryCode: string;
   countries?: any[];
   pageTitle?: string;
+  taxonomies: Taxonomy[];
 };
 
 const Page: React.FC<Props> = ({
@@ -24,7 +25,8 @@ const Page: React.FC<Props> = ({
   languageCode,
   countryCode,
   countries,
-  pageTitle
+  pageTitle,
+  taxonomies
 }) => {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
   const isEnvEmpty = siteUrl === "";
@@ -42,6 +44,7 @@ const Page: React.FC<Props> = ({
             lang={lang}
             countryCode={countryCode}
             countries={countries}
+            taxonomies={taxonomies}
           >
             {children}
           </Layout>

@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { GetStaticProps, NextPage } from "next";
+
 import SEOHead from "@components/SEO";
 import Countries from "@components/Countries";
 import sanityApi from "@utils/sanity/api";

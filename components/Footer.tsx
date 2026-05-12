@@ -1,8 +1,12 @@
 const Footer = () => {
+  const year = new Date().getFullYear();
+
   return (
-    <footer>
-      <h2>Footer</h2>
-    </footer>
+    <div className="w-full background-color-secondary">
+      <footer className="content-container flex justify-center">
+        <p className="font-poppins py-4 md:py-8">© UA {year} Shon | This is a demo project.</p>
+      </footer>
+    </div>
   );
 };
 
