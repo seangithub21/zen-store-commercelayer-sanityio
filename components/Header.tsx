@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { LineItemsContainer, LineItemsCount } from "@commercelayer/react-components";
 
@@ -27,36 +27,7 @@ const Header: React.FC<Props> = ({ lang, countryCode, pageTitle, taxonomies }) =
           <div>Zen Store</div>
         </div>
         <div className="hidden md:block">
-          {/* TODO: Categories */}
-          {/* {productCategories && productCategories?.length > 0 && (
-            <ul className="flex flex-row gap-8">
-              {productCategories?.slice(0, 6).map((c) => {
-                if (c.parent_category) {
-                  return;
-                }
-
-                const children =
-                  c.category_children?.map((child) => ({
-                    name: child.name,
-                    handle: child.handle,
-                    id: child.id
-                  })) || null;
-
-                return (
-                  <li key={c.id}>
-                    <a
-                      className="text-white"
-                      href={`/categories/${c.handle}`}
-                      data-testid="category-link"
-                    >
-                      {c.name}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          )} */}
-          <Taxonomies />
+          <Taxonomies taxonomies={taxonomies} countryCode={countryCode} lang={lang} />
         </div>
         <Link href={"/[countryCode]/[lang]/cart"} as={`/${countryCode}/${lang}/cart`}>
           <div className="flex items-center">
@@ -93,7 +64,7 @@ const Header: React.FC<Props> = ({ lang, countryCode, pageTitle, taxonomies }) =
             </span>
 
             <LineItemsContainer>
-              <LineItemsCount className="-ml-4 md:ml-2 inline-flex items-center px-2 py-1 rounded-full text-sm font-medium leading-5 bg-indigo-500 text-gray-50" />
+              <LineItemsCount className="-ml-4 md:ml-2 inline-flex items-center px-2 py-1 rounded-full text-sm font-medium leading-5 text-gray-50" />
             </LineItemsContainer>
           </div>
         </Link>

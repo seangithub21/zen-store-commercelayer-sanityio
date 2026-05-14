@@ -10,7 +10,7 @@ type Props = {
   buildLanguages?: Country[];
   countries?: Country[];
   pageTitle?: string;
-  taxonomies: Taxonomy[];
+  taxonomies?: Taxonomy[];
 };
 
 const Layout: React.FC<Props> = ({

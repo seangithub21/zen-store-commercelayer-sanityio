@@ -108,6 +108,7 @@ const getAllTaxonomies = async (catalogId: string, locale = "en-US") => {
       'taxons': taxons[]->{
         label,
         name,
+        slug,
         'products': products[]->{
           name,
           description,
@@ -127,6 +128,28 @@ const getAllTaxonomies = async (catalogId: string, locale = "en-US") => {
   }  | order(name asc)`;
   const items: any[] = await client.fetch(query);
   return parsingTaxonomies(_.first(items)?.taxonomies, locale);
+};
+
+const getProducts = async (slug: string, locale = "en-US") => {
+  const lang = parseLocale(locale, "_", "-", "lowercase");
+  const query = groq`*[_type == "taxon" && slug.${lang}.current == '${slug}']{
+    'products': products[]->{
+      name,
+      description,
+      reference,
+      slug,
+      'images': images[]->{
+        'url': images.asset->url
+      },
+      'variants': variants[]->{
+        code,
+        name,
+        size->,
+      }    
+    }
+  }`;
+  const items: any[] = await client.fetch(query);
+  return parsingProduct(_.first(items).products, lang);
 };
 
 const getProduct = async (slug: string, locale = "en-US") => {
@@ -156,6 +179,7 @@ const getProduct = async (slug: string, locale = "en-US") => {
 const sanityApi: Record<string, any> = {
   getAllCountries,
   getAllTaxonomies,
+  getProducts,
   getProduct
 };
 

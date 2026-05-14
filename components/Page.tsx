@@ -13,7 +13,7 @@ type Props = {
   countryCode: string;
   countries?: any[];
   pageTitle?: string;
-  taxonomies: Taxonomy[];
+  taxonomies?: Taxonomy[];
 };
 
 const Page: React.FC<Props> = ({
