@@ -3,7 +3,8 @@ import { GetStaticPaths, GetStaticProps } from "next";
 
 import { useGetToken } from "@hooks/GetToken";
 import Page from "@components/Page";
-import { Country, Product } from "@typings/models";
+import ProductsList from "@components/ProductsList";
+import { Country, Product, Taxonomy } from "@typings/models";
 import sanityApi from "@utils/sanity/api";
 import { parseLanguageCode } from "@utils/parser";
 
@@ -11,11 +12,21 @@ type Props = {
   lang: string;
   countries: Country[];
   country: Country;
+  taxonomies: Taxonomy[];
   buildLanguages?: Country[];
+  categoryName: string;
   products: Product[];
 };
 
-const ProductListPage = ({ lang, country, countries, buildLanguages, products }: Props) => {
+const ProductListPage = ({
+  lang,
+  country,
+  countries,
+  taxonomies,
+  buildLanguages,
+  categoryName,
+  products
+}: Props) => {
   const countryCode = country?.code.toLowerCase() as string;
   const clMarketId = country?.marketId as string;
   const clEndpoint = process.env.NEXT_PUBLIC_CL_ENDPOINT as string;
@@ -35,8 +46,15 @@ const ProductListPage = ({ lang, country, countries, buildLanguages, products }:
       languageCode={languageCode}
       countryCode={countryCode}
       countries={countries}
+      taxonomies={taxonomies}
     >
-      PLP
+      <div className="content-container">
+        <h2>{categoryName}</h2>
+        <div className="flex">
+          <div className="hidden basis-1/4 lg:block">Filters and sorting coming soon...</div>
+          <ProductsList products={products} />
+        </div>
+      </div>
     </Page>
   );
 };
@@ -54,7 +72,8 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
   const countryCode = params?.countryCode as string;
   const countries = await sanityApi.getAllCountries(lang);
   const country = countries.find((country: Country) => country.code.toLowerCase() === countryCode);
-  const products = await sanityApi.getProducts(slug);
+  const taxonomies = await sanityApi.getAllTaxonomies(country.catalog.id, lang);
+  const { categoryName, products } = await sanityApi.getProducts(slug);
   const buildLanguages = _.compact(
     process.env.BUILD_LANGUAGES?.split(",").map((l) => {
       const country = countries.find((country: Country) => country.code === parseLanguageCode(l));
@@ -67,7 +86,9 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
       lang,
       countries,
       country,
+      taxonomies,
       buildLanguages,
+      categoryName,
       products
     },
     revalidate: 60

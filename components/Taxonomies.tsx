@@ -25,8 +25,8 @@ const Taxonomies = ({ taxonomies, countryCode, lang }: Props) => {
                 pQuantity > 0 && (
                   <li key={i}>
                     <Link
-                      href={`/[countryCode]/[lang]/product-list/${slug.en_us.current}`}
-                      as={`/${countryCode}/${lang}/product-list/${slug.en_us.current}`}
+                      href={"/[countryCode]/[lang]/category/[category]"}
+                      as={`/${countryCode}/${lang}/category/${slug.en_us.current}`}
                     >
                       {initialName}
                     </Link>

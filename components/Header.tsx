@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { LineItemsContainer, LineItemsCount } from "@commercelayer/react-components";
 
@@ -24,7 +24,11 @@ const Header: React.FC<Props> = ({ lang, countryCode, pageTitle, taxonomies }) =
             Mobile menu
             {/* <NavigationMobile productCategories={productCategories} /> */}
           </div>
-          <div>Zen Store</div>
+          <div>
+            <Link href={"/[countryCode]/[lang]/"} as={`/${countryCode}/${lang}/`}>
+              Zen Store
+            </Link>
+          </div>
         </div>
         <div className="hidden md:block">
           <Taxonomies taxonomies={taxonomies} countryCode={countryCode} lang={lang} />

@@ -130,9 +130,12 @@ const getAllTaxonomies = async (catalogId: string, locale = "en-US") => {
   return parsingTaxonomies(_.first(items)?.taxonomies, locale);
 };
 
+//  TODO: Improve function return. getProduct as an example
 const getProducts = async (slug: string, locale = "en-US") => {
   const lang = parseLocale(locale, "_", "-", "lowercase");
   const query = groq`*[_type == "taxon" && slug.${lang}.current == '${slug}']{
+    name,
+    label,
     'products': products[]->{
       name,
       description,
@@ -149,7 +152,10 @@ const getProducts = async (slug: string, locale = "en-US") => {
     }
   }`;
   const items: any[] = await client.fetch(query);
-  return parsingProduct(_.first(items).products, lang);
+  const categoryName = _.first(items).label[lang] || _.first(items).name[lang];
+  const products = parsingProduct(_.first(items).products, lang);
+
+  return { products, categoryName };
 };
 
 const getProduct = async (slug: string, locale = "en-US") => {
