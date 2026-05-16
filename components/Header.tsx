@@ -37,8 +37,8 @@ const Header: React.FC<Props> = ({ lang, countryCode, pageTitle, taxonomies }) =
           <div className="flex items-center">
             <span>
               <svg
-                width="32"
-                height="32"
+                width="24"
+                height="24"
                 viewBox="0 0 32 32"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@ const Header: React.FC<Props> = ({ lang, countryCode, pageTitle, taxonomies }) =
             </span>
 
             <LineItemsContainer>
-              <LineItemsCount className="-ml-4 md:ml-2 inline-flex items-center px-2 py-1 rounded-full text-sm font-medium leading-5 text-gray-50" />
+              <LineItemsCount className="inline-flex items-center px-2 py-1 rounded-full text-sm font-medium leading-5 text-gray-50" />
             </LineItemsContainer>
           </div>
         </Link>

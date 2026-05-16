@@ -44,7 +44,7 @@ section.content {
 }
 
 .content-container {
-  @apply max-w-[1400px] mx-auto p-2 md:px-4;
+  @apply max-w-[1300px] mx-auto p-2 md:px-4;
 }
 
 .navigation {

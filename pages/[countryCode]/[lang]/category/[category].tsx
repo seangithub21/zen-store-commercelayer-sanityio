@@ -48,7 +48,7 @@ const ProductListPage = ({
       countries={countries}
       taxonomies={taxonomies}
     >
-      <div className="content-container">
+      <div className="content-container min-h-[calc(100vh-var(--navigation-height))]">
         <h2>{categoryName}</h2>
         <div className="flex">
           <div className="hidden basis-1/4 lg:block">Filters and sorting coming soon...</div>
