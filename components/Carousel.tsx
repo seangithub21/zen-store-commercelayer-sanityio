@@ -56,7 +56,7 @@ const Carousel = ({ images }: { images: any[] }) => {
         disabled={prevButtonDisabled}
       >
         <Image
-          title="back"
+          title="Back"
           src="/chevronLeft.svg"
           className="w-[48px] h-[48px]"
           alt="Chevron left circle SVG icon"
@@ -70,7 +70,7 @@ const Carousel = ({ images }: { images: any[] }) => {
         disabled={nextButtonDisabled}
       >
         <Image
-          title="back"
+          title="Forward"
           src="/chevronRight.svg"
           className="w-[48px] h-[48px]"
           alt="Chevron right circle SVG icon"
