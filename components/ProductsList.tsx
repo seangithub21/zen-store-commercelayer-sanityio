@@ -31,16 +31,12 @@ const ProductsList = ({ products }: Props) => {
                 passHref
               >
                 <div className="relative aspect-[5/6]">
-                  {/* <div className="aspect-w-3 aspect-h-2 mb-5"> */}
                   <Image
                     src={`${img}`}
-                    alt="Placeholder image"
+                    alt="Product"
                     className="object-contain"
                     sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 1024px) 480px, 800px"
                     fill
-
-                    // width={200}
-                    // height={50}
                   />
                 </div>
                 <div className="p-2">{name}</div>

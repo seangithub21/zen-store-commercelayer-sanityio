@@ -5,7 +5,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useGetToken } from "@hooks/GetToken";
 import Page from "@components/Page";
 import Home from "@components/Home";
-import { Country, Taxonomy } from "@typings/models";
+import { Country, Product, Taxon, Taxonomy } from "@typings/models";
 import { parseLanguageCode } from "@utils/parser";
 import sanityApi from "@utils/sanity/api";
 
@@ -14,10 +14,18 @@ type Props = {
   countries: Country[];
   country: Country;
   taxonomies: Taxonomy[];
+  products: Product[];
   buildLanguages: Country[];
 };
 
-const HomePage: NextPage<Props> = ({ lang, countries, country, taxonomies, buildLanguages }) => {
+const HomePage: NextPage<Props> = ({
+  lang,
+  countries,
+  country,
+  taxonomies,
+  products,
+  buildLanguages
+}) => {
   const languageCode = parseLanguageCode(lang, "toLowerCase", true);
   const countryCode = country?.code.toLowerCase() as string;
   const clMarketId = country?.marketId as string;
@@ -38,7 +46,7 @@ const HomePage: NextPage<Props> = ({ lang, countries, country, taxonomies, build
       countries={countries}
       taxonomies={taxonomies}
     >
-      <Home />
+      <Home countryCode={countryCode} lang={lang} products={products} />
     </Page>
   );
 };
@@ -58,6 +66,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const countries = await sanityApi.getAllCountries(lang);
   const country = countries.find((country: Country) => country.code.toLowerCase() === countryCode);
   const taxonomies = await sanityApi.getAllTaxonomies(country.catalog.id, lang);
+  const products = _.first(taxonomies)?.taxons?.find(
+    (taxon: Taxon) => taxon.slug["en_us"].current === "all-products"
+  ).products;
   const buildLanguages = _.compact(
     process.env.BUILD_LANGUAGES?.split(",").map((l) => {
       const country = countries.find((country: Country) => country.code === parseLanguageCode(l));
@@ -71,6 +82,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       countries,
       country,
       taxonomies,
+      products,
       buildLanguages
     },
     revalidate: 60
