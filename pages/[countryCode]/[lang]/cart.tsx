@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import { GetStaticProps, GetStaticPaths, NextPage } from "next";
 import IframeResizer from "iframe-resizer-react";
 import { useOrderContainer } from "@commercelayer/react-components/hooks/useOrderContainer";
+
 import Page from "@components/Page";
 import { useGetToken } from "@hooks/GetToken";
-import { Country } from "@typings/models";
+import { Country, Taxonomy } from "@typings/models";
 import { parseLanguageCode, parseEndpoint } from "@utils/parser";
 import sanityApi from "@utils/sanity/api";
 
@@ -19,6 +20,7 @@ type Props = {
   lang: string;
   countries: Country[];
   country: Country;
+  taxonomies: Taxonomy[];
   buildLanguages: Country[];
 };
 
@@ -73,7 +75,13 @@ const CartIframe: React.FC<CartProps> = ({ countryCode, slug, clToken }) => {
   );
 };
 
-const ShoppingBagPage: NextPage<Props> = ({ lang, buildLanguages = [], countries, country }) => {
+const ShoppingBagPage: NextPage<Props> = ({
+  lang,
+  buildLanguages = [],
+  countries,
+  country,
+  taxonomies
+}) => {
   const languageCode = parseLanguageCode(lang, "toLowerCase", true);
   const countryCode = country?.code.toLowerCase() as string;
   const clMarketId = country?.marketId as string;
@@ -93,6 +101,7 @@ const ShoppingBagPage: NextPage<Props> = ({ lang, buildLanguages = [], countries
       languageCode={languageCode}
       countryCode={countryCode}
       countries={countries}
+      taxonomies={taxonomies}
     >
       <CartIframe countryCode={countryCode} slug={clSlug} clToken={clToken} />
     </Page>
@@ -111,6 +120,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const countryCode = params?.countryCode as string;
   const countries = await sanityApi.getAllCountries(lang);
   const country = countries.find((country: Country) => country.code.toLowerCase() === countryCode);
+  const taxonomies = await sanityApi.getAllTaxonomies(country.catalog.id, lang);
   const buildLanguages = _.compact(
     process.env.BUILD_LANGUAGES?.split(",").map((l) => {
       const country = countries.find((country: Country) => country.code === parseLanguageCode(l));
@@ -123,6 +133,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       lang,
       countries,
       country,
+      taxonomies,
       buildLanguages
     }
   };
