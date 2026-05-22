@@ -5,7 +5,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useGetToken } from "@hooks/GetToken";
 import Page from "@components/Page";
 import Home from "@components/Home";
-import { Country, Product, Taxon, Taxonomy } from "@typings/models";
+import { Country, Product, Taxonomy } from "@typings/models";
 import { parseLanguageCode } from "@utils/parser";
 import sanityApi from "@utils/sanity/api";
 
@@ -66,8 +66,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const countries = await sanityApi.getAllCountries(lang);
   const country = countries.find((country: Country) => country.code.toLowerCase() === countryCode);
   const taxonomies = await sanityApi.getAllTaxonomies(country.catalog.id, lang);
-  const products = _.first(taxonomies)?.taxons?.find(
-    (taxon: Taxon) => taxon.slug["en_us"].current === "all-products"
+  const products = taxonomies[0]?.taxons?.find(
+    (taxon: any) => taxon.slug["en_us"].current === "all-products"
   ).products;
   const buildLanguages = _.compact(
     process.env.BUILD_LANGUAGES?.split(",").map((l) => {
