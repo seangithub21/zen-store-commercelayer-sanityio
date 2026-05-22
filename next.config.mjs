@@ -17,6 +17,9 @@ const nextConfig = {
     BUILD_CMS: process.env.BUILD_CMS,
     CL_CLIENT_ID: process.env.CL_CLIENT_ID,
     CL_ENDPOINT: process.env.CL_ENDPOINT
+  },
+  eslint: {
+    ignoreDuringBuilds: false
   }
 };
 
