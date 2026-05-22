@@ -18,7 +18,7 @@ const Taxonomies = ({ taxonomies, countryCode, lang, isMobile }: Props) => {
     <>
       {taxonomies && taxonomies?.length > 0 && !isMobile ? (
         <ul className="flex flex-row gap-8">
-          {taxonomies?.map((t, k) => {
+          {taxonomies?.map((t, _) => {
             return t.taxons.slice(0, 6).map((taxon, i) => {
               const { name, products, label, slug } = taxon;
               const pQuantity = products?.length || 0;
@@ -66,7 +66,7 @@ const Taxonomies = ({ taxonomies, countryCode, lang, isMobile }: Props) => {
                     </button>
                   </div>
                   <ul className="flex flex-col gap-8">
-                    {taxonomies?.map((t, k) => {
+                    {taxonomies?.map((t, _) => {
                       return t.taxons.slice(0, 6).map((taxon, i) => {
                         const { name, products, label, slug } = taxon;
                         const pQuantity = products?.length || 0;
