@@ -28,7 +28,7 @@ const Layout: React.FC<Props> = ({
 
         <main>{children}</main>
 
-        <Footer lang={lang} countries={countries} buildLanguages={buildLanguages} />
+        <Footer />
       </div>
     </>
   );
