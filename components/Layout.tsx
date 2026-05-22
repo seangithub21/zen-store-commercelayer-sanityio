@@ -15,10 +15,10 @@ type Props = {
 
 const Layout: React.FC<Props> = ({
   children,
-  buildLanguages = [],
+  // buildLanguages = [],
   lang,
   countryCode,
-  countries = [],
+  // countries = [],
   taxonomies = []
 }) => {
   return (
