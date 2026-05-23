@@ -66,9 +66,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const countries = await sanityApi.getAllCountries(lang);
   const country = countries.find((country: Country) => country.code.toLowerCase() === countryCode);
   const taxonomies = await sanityApi.getAllTaxonomies(country.catalog.id, lang);
-  const products = taxonomies[0]?.taxons?.find(
-    (taxon: any) => taxon.slug["en_us"].current === "all-products"
-  ).products;
+  const products =
+    taxonomies[0]?.taxons?.find((taxon: any) => taxon.slug["en_us"].current === "home-decoration")
+      ?.products || [];
   const buildLanguages = _.compact(
     process.env.BUILD_LANGUAGES?.split(",").map((l) => {
       const country = countries.find((country: Country) => country.code === parseLanguageCode(l));
