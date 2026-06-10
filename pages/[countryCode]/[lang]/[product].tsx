@@ -10,7 +10,7 @@ import locale from "@locale/index";
 import Page from "@components/Page";
 import Carousel from "@components/Carousel";
 import { Product, Country, Taxonomy } from "@typings/models";
-import { parseImg, parseLanguageCode } from "@utils/parser";
+import { parseLanguageCode } from "@utils/parser";
 import sanityApi from "@utils/sanity/api";
 
 type Props = {
