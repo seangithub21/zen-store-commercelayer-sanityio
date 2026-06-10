@@ -24,13 +24,13 @@ const ProductsList = ({ products }: Props) => {
 
         return (
           <div key={key}>
-            <div className="background-color-secondary h-full rounded">
+            <div className="h-full rounded">
               <Link
                 href={"/[countryCode]/[lang]/[productName]"}
                 as={`/${countryCode}/${lang}/${slug}`}
                 passHref
               >
-                <div className="relative aspect-[5/6]">
+                <div className="relative aspect-[1/1]">
                   <Image
                     src={`${img}`}
                     alt="Product"
@@ -39,8 +39,8 @@ const ProductsList = ({ products }: Props) => {
                     fill
                   />
                 </div>
-                <div className="p-2">{name}</div>
-                <div className="p-2">
+                <div className="px-2 pt-2">{name}</div>
+                <div className="px-2">
                   <PricesContainer skuCode={code}>
                     <Price
                       className="text-indigo-600 mr-1 text-base font-bold md:text-sm"

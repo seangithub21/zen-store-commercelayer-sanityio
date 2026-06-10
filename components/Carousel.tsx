@@ -34,7 +34,7 @@ const Carousel = ({ images }: { images: any[] }) => {
               return (
                 <div
                   key={index}
-                  className="embla__slide aspect-[5/6] relative flex-[0_0_100%] min-w-0"
+                  className="embla__slide aspect-[1/1] relative flex-[0_0_100%] min-w-0"
                 >
                   {!!image.url && (
                     <Image

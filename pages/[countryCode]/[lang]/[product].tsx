@@ -42,7 +42,9 @@ const ProductPage: React.FC<Props> = ({
   const images =
     product?.images.length > 0
       ? product?.images.map((image) => {
-          return { url: parseImg(image?.url as string) };
+          return { url: image?.url };
+          //  TODO: parseImg() fetches jpg and causes black background. Necessary?
+          // return { url: parseImg(image?.url as string) };
         })
       : [];
   const firstVariantCode = _.first(product?.variants)?.code as string;
