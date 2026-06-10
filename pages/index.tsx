@@ -13,7 +13,7 @@ const IndexPage: NextPage<Props> = ({ countries }) => {
   return (
     <>
       <SEOHead />
-      <div className="m-16 mx-auto container">
+      <div className="m-16 mx-auto container min-h-[calc(100vh-var(--navigation-height))]">
         <Countries items={countries} />
       </div>
       <hr />

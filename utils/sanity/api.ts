@@ -78,8 +78,8 @@ const parsingTaxonomies = (taxonomies: SanityTaxonomy[], locale = "en-US"): Taxo
 
 const getAllCountries = async (locale = "en-US") => {
   const lang = parseLocale(locale, "_", "-", "lowercase");
-  //  TODO: Limit to DE and US for now. Add the rest later
-  const query = groq`*[_type == "country" && (code == 'DE' || code == 'US')]{
+  //  TODO: Limit to DE for now. Add the rest later
+  const query = groq`*[_type == "country" && (code == 'DE')]{
     name,
     code,
     marketId,

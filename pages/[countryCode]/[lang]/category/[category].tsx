@@ -50,7 +50,7 @@ const ProductListPage = ({
     >
       <div className="content-container min-h-[calc(100vh-var(--navigation-height))]">
         <h2>{categoryName}</h2>
-        <div className="flex">
+        <div className="flex py-4">
           <div className="hidden basis-1/4 lg:block">Filters and sorting coming soon...</div>
           <ProductsList products={products} />
         </div>

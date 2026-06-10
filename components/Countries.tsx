@@ -35,6 +35,9 @@ const Countries: React.FC<Props> = ({ items }) => {
             </Link>
           );
         })}
+        <div className="text-center">
+          <p className="text-lg font-bold">More countries coming soon...</p>
+        </div>
       </div>
     </div>
   );
