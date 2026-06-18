@@ -40,7 +40,7 @@ const Taxonomies = ({ taxonomies, countryCode, lang, isMobile }: Props) => {
           })}
         </ul>
       ) : (
-        <Popover className="relative">
+        <Popover>
           <Popover.Button as="div">
             <div className="w-[20px] h-[2px] rounded my-1 bg-white"></div>
             <div className="w-[20px] h-[2px] rounded bg-white"></div>
@@ -56,7 +56,7 @@ const Taxonomies = ({ taxonomies, countryCode, lang, isMobile }: Props) => {
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
           >
-            <Popover.Panel className="fixed text-black top-20 flex flex-col w-[75vw] max-w-xs h-[80vh] overflow-y-auto bg-white [--anchor-gap:2rem] [--anchor-padding:1rem] p-4 rounded z-20">
+            <Popover.Panel className="fixed top-0 left-0 text-black bg-white/80 backdrop-blur-md flex flex-col w-[85vw] max-w-xs h-[100vh] overflow-y-auto [--anchor-gap:2rem] [--anchor-padding:1rem] p-4 rounded-r z-20">
               {({ close }) => (
                 <>
                   <div className="flex justify-between items-center mb-8">
@@ -78,6 +78,7 @@ const Taxonomies = ({ taxonomies, countryCode, lang, isMobile }: Props) => {
                               <Link
                                 href={"/[countryCode]/[lang]/category/[category]"}
                                 as={`/${countryCode}/${lang}/category/${slug.en_us.current}`}
+                                onClick={() => close()}
                               >
                                 {initialName}
                               </Link>
