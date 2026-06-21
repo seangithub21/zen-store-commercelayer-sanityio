@@ -29,10 +29,13 @@ const Header: React.FC<Props> = ({ lang, countryCode, pageTitle, taxonomies }) =
               isMobile={true}
             />
           </div>
-          <div>
+          <div className="relative">
             <Link href={"/[countryCode]/[lang]/"} as={`/${countryCode}/${lang}/`}>
               Zen Store
             </Link>
+            <span className="absolute -top-0.5 -right-10.5 text-[10px] font-bold leading-3 text-accent bg-white rounded-md px-2">
+              Demo
+            </span>
           </div>
         </div>
         <div className="hidden md:block">

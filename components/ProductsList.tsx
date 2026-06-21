@@ -4,7 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { Price, PricesContainer } from "@commercelayer/react-components";
+import {
+  AvailabilityContainer,
+  AvailabilityTemplate,
+  Price,
+  PricesContainer
+} from "@commercelayer/react-components";
 import { Product } from "@typings/models";
 
 type Props = {
@@ -38,14 +43,24 @@ const ProductsList = ({ products }: Props) => {
                   fill
                 />
               </div>
-              <div className="px-2 mt-2">{name}</div>
-              <div className="px-2 mb-2">
+              <div className="text-sm px-2 mt-2">{name}</div>
+              <div className="px-2">
                 <PricesContainer skuCode={code}>
                   <Price
-                    className="text-accent mr-1 text-base font-bold md:text-sm"
+                    className="text-accent mr-1 text-base font-bold"
                     compareClassName="text-gray-500 line-through text-sm md:text-xs"
                   />
                 </PricesContainer>
+              </div>
+              <div className="px-2 mb-2">
+                <AvailabilityContainer skuCode={code}>
+                  <AvailabilityTemplate
+                    className="text-xs text-slate-500"
+                    labels={{ available: "Delivery" }}
+                    showShippingMethodPrice
+                    timeFormat="days"
+                  />
+                </AvailabilityContainer>
               </div>
             </Link>
           </div>
