@@ -2,8 +2,14 @@ import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { Price, PricesContainer, AddToCartButton } from "@commercelayer/react-components";
+import { useRouter } from "next/router";
+import {
+  Price,
+  PricesContainer,
+  AddToCartButton,
+  AvailabilityContainer,
+  AvailabilityTemplate
+} from "@commercelayer/react-components";
 
 import { useGetToken } from "@hooks/GetToken";
 import locale from "@locale/index";
@@ -38,6 +44,7 @@ const ProductPage: React.FC<Props> = ({
     countryCode: countryCode
   });
   const languageCode = parseLanguageCode(lang, "toLowerCase", true);
+  const router = useRouter();
 
   const images =
     product?.images.length > 0
@@ -79,15 +86,7 @@ const ProductPage: React.FC<Props> = ({
     >
       <div className="content-container min-h-[calc(100vh-var(--navigation-height))]">
         <div className="w-full py-5 text-sm text-gray-700">
-          <Link
-            href={{
-              pathname: "/[countryCode]/[lang]",
-              query: {
-                countryCode,
-                lang
-              }
-            }}
-          >
+          <div onClick={() => router.back()}>
             <Image
               title="back"
               src="/back.svg"
@@ -96,19 +95,19 @@ const ProductPage: React.FC<Props> = ({
               width={20}
               height={20}
             />
-            <p className="ml-2 hover:underline inline-block align-middle">
-              {locale[lang].backToHomePage}
+            <p className="ml-2 hover:underline hover:cursor-pointer inline-block align-middle">
+              Back
             </p>
-          </Link>
+          </div>
         </div>
         <div className="block md:flex w-full">
           <div className="left basis-1/2">
             <Carousel images={images} />
           </div>
           <div className="right basis-1/2 p-4 md:p-8 md:pt-0">
-            <div className="text-2xl font-semibold">{product.name}</div>
-            <div className="text-gray-600 mt-1">{selectedVariant}</div>
-            <div className="py-4">{product.description}</div>
+            <p className="text-2xl font-semibold">{product.name}</p>
+            <p className="text-gray-600 mt-1">{selectedVariant}</p>
+            <p className="py-4">{product.description}</p>
             <div className="flex flex-col gap-y-2">
               <div className="mb-4">
                 <select
@@ -135,6 +134,24 @@ const ProductPage: React.FC<Props> = ({
                   />
                 </PricesContainer>
               </span>
+            </div>
+            <div className="flex items-start gap-2 text-sm mb-4">
+              <AvailabilityContainer skuCode={selectedVariant}>
+                <Image
+                  title="Delivery"
+                  src="/delivery-truck.svg"
+                  className="w-[18px] h-[18px]"
+                  alt="Delivery truck SVG icon"
+                  width={20}
+                  height={20}
+                />
+                <AvailabilityTemplate
+                  labels={{ available: "Delivery" }}
+                  showShippingMethodPrice
+                  showShippingMethodName
+                  timeFormat="days"
+                />
+              </AvailabilityContainer>
             </div>
             <AddToCartButton
               skuCode={selectedVariant}
